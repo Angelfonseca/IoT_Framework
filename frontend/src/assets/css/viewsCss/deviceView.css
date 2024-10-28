@@ -1,0 +1,102 @@
+.device-view-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.layout {
+    display: flex; /* Usamos flexbox para el diseño horizontal */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en caso de que el contenedor sea más pequeño */
+}
+
+.module-section {
+    width: 33%; /* Ocupa el 33% del ancho */
+    padding: 20px;
+    border-right: 1px solid #ccc; /* Borde derecho para separar la sección */
+}
+
+.chart-section {
+    width: 66%; /* Ocupa el 66% del ancho */
+    padding: 20px;
+}
+
+/* Estilos para el área de texto JSON */
+.json-textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilos para el selector de módulos */
+.module-select {
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilos para el grupo de botones */
+.button-group {
+    margin-top: 20px;
+}
+
+/* Estilos generales para los botones */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos específicos para botones de colores */
+.btn-green {
+    background-color: #34C759;
+    color: #fff;
+}
+
+.btn-blue {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.btn-orange {
+    background-color: #FFC107;
+    color: #fff;
+}
+
+/* Estilos para la sección de graficación */
+.chart-section {
+    margin-bottom: 20px;
+}
+
+/* Estilos para los inputs de fecha */
+.date-input {
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilos para la etiqueta de fecha */
+.date-label {
+    margin-left: 10px;
+}
+
+/* Estilos para la sección de datos recientes */
+.latest-data-section {
+    margin-top: 20px;
+}
+
+/* Estilos para mostrar los datos recientes */
+.latest-data-pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

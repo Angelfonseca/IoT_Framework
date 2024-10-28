@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul>
+                <li><a href="#config">Configuración de usuario</a></li>
+                <li><a href="#devices">Dispositivos</a></li>
+                <li><a href="#graphing">Graficación</a></li>
+                <li><a href="#logout">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="main-container">
+        <section id="config">
+            <h2>Configuración de usuario</h2>
+            <p>
+                En esta sección podrás administrar la configuración de tu usuario. Será posible añadir nuevos usuarios al sistema,
+                dándoles las credenciales necesarias para acceder. Además, podrás cambiar la contraseña del usuario actual para mejorar
+                la seguridad de tu cuenta.
+            </p>
+        </section>
+        <section id="devices">
+            <h2>Dispositivos</h2>
+            <p>
+                Este sistema permite la creación y gestión de dispositivos IoT. Los usuarios pueden registrar nuevos dispositivos,
+                proporcionando detalles específicos que se asocian con un ID único para cada dispositivo. Esto facilita el seguimiento
+                y la gestión de cada uno.
+            </p>
+            <p>
+                Además, para cada dispositivo seleccionado, el sistema te proporcionará automáticamente la solicitud POST que debes
+                realizar para enviar la data correspondiente a ese dispositivo. Esto se basa en el JSON de los datos que hayas configurado,
+                facilitando la integración con otros sistemas o aplicaciones externas.
+            </p>
+            <p>
+                Una vez creado un dispositivo, los usuarios pueden generar modelos de datos que se relacionan directamente con el ID
+                del dispositivo. Estos modelos de datos son fundamentales para estructurar la información y para el monitoreo efectivo
+                de cada dispositivo.
+            </p>
+            <p>
+                El sistema permite la monitorización de dispositivos en tiempo "real". Sin embargo, dado que la interfaz utiliza EJS,
+                los usuarios deben realizar recargas manuales de la página para actualizar los datos. Esto significa que los usuarios
+                pueden ver las últimas lecturas y estados de los dispositivos, pero requerirán interacción manual para obtener la información
+                más reciente.
+            </p>
+        </section>
+        <section id="graphing">
+            <h2>Graficación</h2>
+            <p>
+                Cada modelo de datos que crees para los dispositivos tendrá un identificador de fecha asociado. Esto permitirá generar
+                diferentes tipos de gráficos para los campos que contienen datos "graficables". 
+            </p>
+            <p>
+                El sistema buscará únicamente los datos relevantes para graficar, facilitando la visualización de la información y permitiendo
+                a los usuarios analizar mejor los patrones de comportamiento de sus dispositivos a lo largo del tiempo.
+            </p>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 Derechos registrados</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+    }
+
+    .navbar {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 1em;
+        text-align: center;
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .navbar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .navbar li {
+        flex: 1;
+        text-align: center;
+    }
+
+    .navbar a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        transition: background 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+    }
+
+    .main-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2em;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    section {
+        background-color: #fff;
+        padding: 2em;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    section h2 {
+        border-bottom: 2px solid #007BFF;
+        padding-bottom: 10px;
+        color: #007BFF;
+    }
+
+    .footer {
+        background-color: #333;
+        color: #fff;
+        padding: 1em;
+        text-align: center;
+    }
+</style>

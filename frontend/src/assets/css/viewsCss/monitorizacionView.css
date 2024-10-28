@@ -1,0 +1,182 @@
+/* Contenedor general de la vista de monitoreo */
+.monitoring-view {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Título principal */
+.monitoring-view h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Botón para crear dispositivo */
+.create-device-button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.create-device-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos de la lista de dispositivos */
+.device-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Contenedor de cada dispositivo (IOT_Container) */
+.IOT_Container {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: calc(33.333% - 10px); /* Three columns layout with gap */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.IOT_Container:hover {
+    transform: scale(1.05);
+}
+
+.IOT_Container p {
+    font-weight: bold;
+    color: #333;
+}
+
+@media (max-width: 900px) {
+    .IOT_Container {
+        width: calc(50% - 10px); /* Two columns layout for medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .IOT_Container {
+        width: 100%; /* Single column layout for small screens */
+    }
+}
+
+/* Imagen del dispositivo */
+.device-image {
+    width: 50px;
+    height: 50px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Contenido del modal */
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-content label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #555;
+}
+
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Contenedor de los botones del modal */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+/* Estilos de los botones individuales del modal */
+.modal-button {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-button.confirm {
+    background-color: #4CAF50; /* Color verde para confirmar */
+    color: white;
+}
+
+.modal-button.cancel {
+    background-color: #f44336; /* Color rojo para cancelar */
+    color: white;
+}
+
+/* Efecto hover para los botones */
+.modal-button:hover {
+    opacity: 0.9;
+}
+
+/* Responsividad para dispositivos móviles */
+@media (max-width: 600px) {
+    /* Ajuste de ancho del modal en móvil */
+    .modal-content {
+        width: 100%;
+        padding: 15px;
+    }
+    
+    /* Botones del modal en columna en móvil */
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+    .modal-button {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

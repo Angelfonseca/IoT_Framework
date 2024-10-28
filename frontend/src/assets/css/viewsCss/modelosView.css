@@ -1,0 +1,187 @@
+.model-creator {
+    font-family: Arial, sans-serif;
+    max-width: 600px; /* Limita el ancho máximo del formulario */
+    margin: auto; /* Centra el formulario en la página */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Añade sombra para un efecto visual */
+    overflow: hidden; /* Asegura que el contenido se mantenga dentro de los límites */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: calc(100% - 16px); /* Ajusta el ancho para incluir el padding */
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.btn-add {
+    padding: 10px 15px;
+    margin: 5px 0;
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Hacer que los botones ocupen el ancho completo */
+    transition: background-color 0.3s; /* Transición suave al cambiar de color */
+}
+
+.btn-add:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+
+.btn-add:disabled {
+    background-color: #ccc; /* Color de fondo para botones deshabilitados */
+    color: #666; /* Color del texto para botones deshabilitados */
+    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+}
+
+.btn-dlt {
+    padding: 10px 15px;
+    margin: 5px 0;
+    background-color: #dc3545; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Hacer que los botones ocupen el ancho completo */
+    transition: background-color 0.3s; /* Transición suave al cambiar de color */
+}
+
+.btn-dlt:hover {
+    background-color: #c82333; /* Color de fondo al pasar el mouse */
+}
+
+.btn-dlt:disabled {
+    background-color: #ccc; /* Color de fondo para botones deshabilitados */
+    color: #666; /* Color del texto para botones deshabilitados */
+    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+}
+
+.btn-gen {
+    padding: 10px 15px;
+    margin: 5px 0;
+    background-color: #28a745; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Hacer que los botones ocupen el ancho completo */
+    transition: background-color 0.3s; /* Transición suave al cambiar de color */
+}
+
+.btn-gen:hover {
+    background-color: #218838; /* Color de fondo al pasar el mouse */
+}
+
+.btn-gen:disabled {
+    background-color: #ccc; /* Color de fondo para botones deshabilitados */
+    color: #666; /* Color del texto para botones deshabilitados */
+    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+}
+
+.field-container,
+.subfield-container {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.field-container h4,
+.subfield-container h5 {
+    margin-bottom: 10px;
+}
+
+.field-container button,
+.subfield-container button {
+    margin-top: 10px;
+    width: 100%; /* Hacer que los botones ocupen el ancho completo */
+}
+
+/* Estilo para la vista previa */
+.preview {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: auto; /* Permite el desplazamiento si el contenido es demasiado grande */
+    white-space: pre-wrap; /* Mantiene el formato del texto */
+    margin-top: 20px; /* Espaciado superior */
+}
+
+/* Estilo para hacer el formulario responsive */
+@media (max-width: 600px) {
+    .model-creator {
+        padding: 15px; /* Ajustar el padding en pantallas pequeñas */
+    }
+
+    input[type="text"],
+    select {
+        width: 100%; /* Asegurarse de que los inputs ocupen el 100% del contenedor */
+    }
+
+    button {
+        padding: 8px; /* Ajustar el padding del botón en pantallas pequeñas */
+    }
+
+    .field-container,
+    .subfield-container {
+        padding: 10px; /* Ajustar el padding en contenedores en pantallas pequeñas */
+    }
+
+    .preview {
+        padding: 8px; /* Ajustar el padding en la vista previa en pantallas pequeñas */
+    }
+}
+
+/* Estilos para las tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilos para las subdivisiones */
+.subdivision {
+    margin-left: 20px;
+    border-left: 2px solid #ccc;
+    padding-left: 10px;
+}

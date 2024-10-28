@@ -1,0 +1,62 @@
+/* Contenedor principal */
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+}
+
+/* Contenido principal */
+.content {
+    flex: 1; /* Permite que el contenido ocupe el espacio restante */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    padding-bottom: 60px; /* Espacio para el footer */
+    max-height: calc(100vh - 120px); /* Ajusta según la altura de tu NavBar y Footer */
+}
+
+/* Navbar */
+nav {
+    position: sticky; /* Permite que la navbar se quede fija en la parte superior */
+    top: 0; /* Fija la navbar en la parte superior */
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que la navbar esté por encima del contenido */
+    background-color: #fff; /* Color de fondo de la navbar */
+}
+
+/* Footer */
+footer {
+    position: relative; /* Posicionamiento relativo para el footer */
+    width: 100%;
+    z-index: 1000; /* Asegura que el footer esté por encima del contenido */
+    background-color: #fff; /* Color de fondo del footer */
+    padding: 15px 0; /* Espaciado vertical */
+    text-align: center; /* Centra el texto del footer */
+    margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+/* Media Queries para móviles */
+@media (max-width: 768px) {
+    .layout-container {
+        padding: 10px; /* Espaciado adicional en móviles */
+    }
+
+    .content {
+        max-height: calc(100vh - 120px); /* Mantener el espacio para la navbar y el footer */
+        flex: 1 0 auto; /* Permite que el contenido crezca */
+        padding-bottom: 80px; /* Más espacio para el footer en móviles */
+        overflow-y: auto; /* Asegúrate de que el contenido sea desplazable */
+    }
+
+    nav {
+        padding: 10px; /* Espaciado interno de la navbar */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para separación */
+    }
+
+    footer {
+        position: sticky; /* Mantiene el footer visible en la parte inferior */
+        bottom: 0; /* Fija el footer en la parte inferior */
+        padding: 10px; /* Espaciado interno del footer */
+    }
+}

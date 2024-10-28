@@ -1,0 +1,15 @@
+.schema-preview {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.field {
+    margin: 5px 0;
+}
+
+.nested-fields {
+    margin-left: 20px; /* Indentación para campos anidados */
+}
