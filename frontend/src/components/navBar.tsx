@@ -4,7 +4,6 @@ import '../assets/css/componentsCss/navBar.css';
 
 const NavBar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
     const toggleMenu = () => {
         setIsMenuOpen(prev => !prev);
     };
@@ -20,10 +19,10 @@ const NavBar: React.FC = () => {
                     <Link to="/monitorizacion" className="navbar-link">Monitorización</Link>
                 </li>
                 <li className="navbar-item">
-                    <Link to="/graficas" className="navbar-link">Graficación</Link>
-                </li>
-                <li className="navbar-item">
                     <Link to="/modelos" className="navbar-link">Modelos</Link>
+                </li>
+                <li className='navbar-item'>
+                    <Link to="/alertas" className="navbar-link">Filtros</Link>
                 </li>
                 <li className="navbar-item">
                     <Link to="/login" className="navbar-link" onClick={() => {

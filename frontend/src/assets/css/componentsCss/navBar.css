@@ -1,10 +1,11 @@
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #333;
-    padding: 10px 20px;
+.navbar { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    background-color: #333; 
+    padding: 10px 20px; 
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .navbar-logo {
@@ -13,7 +14,7 @@
 
 .navbar-toggle {
     display: none;
-    font-size: 24px;
+    font-size: 20px; /* Tamaño reducido para móviles */
     color: #f0f0f0;
     background: none;
     border: none;
@@ -48,29 +49,26 @@
 @media (max-width: 768px) {
     .navbar {
         flex-direction: row;
+        justify-content: space-between; /* Alinea logo y botón horizontalmente */
         align-items: center;
     }
-
     .navbar-logo {
         height: 30px;
     }
-
     .navbar-toggle {
         display: block;
+        font-size: 20px; /* Tamaño reducido para móviles */
     }
-
     .navbar-menu {
-        display: none; /* Ocultar menú en móvil */
+        display: none;
         flex-direction: column;
         width: 100%;
         padding: 0;
         margin-top: 10px;
     }
-
     .navbar-menu.active {
-        display: flex; /* Mostrar menú cuando esté activo */
+        display: flex;
     }
-
     .navbar-item {
         margin: 10px 0;
         width: 100%;

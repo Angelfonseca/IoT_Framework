@@ -18,13 +18,13 @@ interface DeviceDetail {
 const DeviceDetail: React.FC<DeviceDetailProps> = ({ deviceId, onClose }) => {
     const [deviceDetail, setDeviceDetail] = useState<DeviceDetail | null>(null);
     const modalRef = useRef<HTMLDivElement>(null);
-    const navigate = useNavigate();  // Hook de React Router para redirigir
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchDeviceDetail = async () => {
             if (deviceId) {
                 try {
-                    const response = await apiService.get<DeviceDetail>(`/devices/${deviceId}`);
+                    const response = await apiService.get<DeviceDetail>(`/devices/byid/${deviceId}`);
                     setDeviceDetail(response);
                 } catch (error) {
                     console.error('Error fetching device detail:', error);

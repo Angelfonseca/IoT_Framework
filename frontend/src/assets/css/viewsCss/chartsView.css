@@ -1,0 +1,114 @@
+/* Contenedor principal que debe ocupar todo el espacio disponible */
+.device-view-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Hace que el contenedor ocupe toda la altura de la ventana */
+}
+
+/* Sección de módulos: permitirá el desplazamiento dentro de esta sección */
+.module-section {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  position: relative; /* Agrega esto para posicionar elementos en relación a esta sección */
+}
+/* Ajuste para la vista de gráficos */
+.chart-view {
+  flex: 1; /* Permite que ocupe el espacio restante */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto; /* Habilita el desplazamiento en caso de que el contenido sea demasiado grande */
+  
+}
+
+.chart-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas por defecto */
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+  max-height: 800px; /* Limita la altura de los gráficos */
+  max-width: 100%; /* Ajusta el ancho de los gráficos */
+  overflow-y: auto; /* Permite que los gráficos se desplacen si el contenido excede el espacio */
+}
+
+.chart-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.chart-item h3 {
+  margin-top: 0;
+}
+
+.chart-item p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Botones */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-green {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-green:hover {
+  background-color: #45a049;
+}
+
+.btn-red {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-red:hover {
+  background-color: #d32f2f;
+}
+
+.btn-orange {
+  background-color: #ff9800;
+  color: white;
+}
+
+.btn-orange:hover {
+  background-color: #fb8c00;
+}
+
+/* Media Queries para hacer responsive */
+@media (max-width: 1024px) {
+  .chart-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 columna en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    grid-template-columns: 1fr; /* 1 columna en pantallas muy pequeñas */
+  }
+}

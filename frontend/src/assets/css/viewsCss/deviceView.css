@@ -4,99 +4,86 @@
 }
 
 .layout {
-    display: flex; /* Usamos flexbox para el diseño horizontal */
-    flex-wrap: wrap; /* Permite que los elementos se ajusten en caso de que el contenedor sea más pequeño */
+    display: flex;
+    justify-content: space-between;
 }
 
-.module-section {
-    width: 33%; /* Ocupa el 33% del ancho */
-    padding: 20px;
-    border-right: 1px solid #ccc; /* Borde derecho para separar la sección */
+.module-section, .chart-section {
+    width: 45%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chart-section {
-    width: 66%; /* Ocupa el 66% del ancho */
-    padding: 20px;
+.json-display {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-/* Estilos para el área de texto JSON */
-.json-textarea {
+.module-select, .chart-type-select, .date-input {
     width: 100%;
-    height: 150px;
-    padding: 10px;
-    font-size: 14px;
+    padding: 8px;
+    margin: 5px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
-/* Estilos para el selector de módulos */
-.module-select {
-    margin-left: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Estilos para el grupo de botones */
 .button-group {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-/* Estilos generales para los botones */
 .btn {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    color: white;
     cursor: pointer;
+    margin-top: 10px;
 }
 
-/* Estilos específicos para botones de colores */
 .btn-green {
-    background-color: #34C759;
-    color: #fff;
-}
-
-.btn-blue {
-    background-color: #3498db;
-    color: #fff;
+    background-color: #28a745;
 }
 
 .btn-orange {
-    background-color: #FFC107;
-    color: #fff;
+    background-color: #fd7e14;
 }
 
-/* Estilos para la sección de graficación */
-.chart-section {
-    margin-bottom: 20px;
+.chart-display {
+    margin-top: 20px;
 }
 
-/* Estilos para los inputs de fecha */
-.date-input {
-    margin-left: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Estilos para la etiqueta de fecha */
 .date-label {
     margin-left: 10px;
 }
 
-/* Estilos para la sección de datos recientes */
-.latest-data-section {
-    margin-top: 20px;
+/* Full screen chart styles */
+.chart-container {
+    width: 100%;
+    height: 400px; /* Ajusta la altura según sea necesario */
+    margin: 0 auto;
 }
 
-/* Estilos para mostrar los datos recientes */
-.latest-data-pre {
-    background-color: #f4f4f4;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.chart-container.full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-container.full-screen canvas {
+    height: 80vh !important;
+    width: 80vw !important;
 }

@@ -1,0 +1,136 @@
+.chart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 2000; /* Asegura que el modal esté sobre otros elementos */
+}
+
+.chart-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+.selector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.selector label {
+  font-size: 16px;
+  color: #333;
+  margin-left: 10px; /* Espacio entre el checkbox y el nombre */
+  cursor: pointer; /* Añade cursor pointer para el label también */
+}
+
+.selector input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.selector input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.selector input[type="checkbox"]:checked::before {
+  content: '✔';
+  color: white;
+  font-size: 14px;
+}
+
+.selector input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 3px 2px rgba(0, 123, 255, 0.25);
+}
+
+.selector input[type="checkbox"]:hover {
+  border-color: #0056b3;
+}
+
+
+.chart-modal-content {
+  background-color: white;
+  width: 90%; /* Ajuste automático para pantallas pequeñas */
+  max-width: 900px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2001; /* Asegura que el contenido del modal esté sobre el fondo */
+  overflow-y: auto;
+  max-height: 80vh; /* Evita que el modal exceda la altura de la pantalla */
+  position: relative; /* Asegura que el contenido se posicione correctamente */
+}
+
+.chart-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.chart-item {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2000; /* Asegura que las gráficas estén por debajo del modal */
+}
+
+/* Estilos para las etiquetas y campos de entrada */
+.date-label,
+.date-input,
+.module-select,
+.chart-type-select {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: block;
+  width: 100%; /* Asegura que los elementos ocupen todo el ancho */
+}
+
+/* Botón de acción en color rojo */
+.btn {
+  margin-top: 15px;
+}
+
+.btn-red {
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 15px;
+  position: relative;
+  z-index: 2002; /* Asegura que el botón esté sobre el contenido */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%; /* Botón de ancho completo para móvil */
+}
+
+.btn-red:hover {
+  background-color: #c0392b;
+}
+
+/* Adaptación para pantallas móviles */
+@media (max-width: 768px) {
+  .chart-modal-content {
+    width: 95%; /* Modal más ancho en pantallas pequeñas */
+    padding: 15px; /* Menor espacio para adaptarse mejor en móviles */
+  }
+}

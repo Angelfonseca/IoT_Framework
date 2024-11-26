@@ -32,9 +32,14 @@ const Chart: React.FC<ChartProps> = ({ title, datos, chartType }) => {
                 text: title,
             },
             tooltip: {},
+            legend: {
+                data: datos[0].values.map((value) => value.name),
+                orient: 'vertical',
+                right: '10%',
+            },
             xAxis: {
                 type: 'category',
-                data: datos.map((d) => d.date), // Usar fechas para el eje X
+                data: datos.map((d) => d.date), 
             },
             yAxis: {},
             series,
