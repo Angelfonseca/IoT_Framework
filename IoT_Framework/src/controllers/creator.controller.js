@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const ModeloSchema = require('../models/modules.model');
 
 // Función para generar el esquema de datos
 const genDataModel = (name, fields) => {
@@ -25,10 +26,14 @@ const genDataModel = (name, fields) => {
 
     // Verificar si 'device' ya está en los campos
     const hasDeviceField = fields.some(field => field.name === 'device');
+    const hasModuleField = fields.some(field => field.name === 'module');
 
     // Solo agregar el campo 'device' si no existe ya
     if (!hasDeviceField) {
-        schemaFields.unshift(`device: { type: mongoose.Schema.Types.ObjectId, ref: 'Device' }`);
+        schemaFields.unshift(`device: { type: mongoose.Schema.Types.ObjectId, ref: 'Device', required: true }`);
+    }
+    else if (!hasModuleField) {
+        schemaFields.unshift(`module: { type: mongoose.Schema.Types.ObjectId, ref: 'Module', required: true }`);
     }
 
     const schemaStr = `
@@ -47,7 +52,7 @@ module.exports = mongoose.model('${name}', ${name}Schema);
 const createDataModel = async (name, fields) => {
     const dirPath = path.join(__dirname, '../models/data'); // Ajustar la ruta según sea necesario
     const filePath = path.join(dirPath, `${name}.js`);
-
+    await ModeloSchema.create({name: name});
     // Crear el directorio si no existe
     if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath, { recursive: true });

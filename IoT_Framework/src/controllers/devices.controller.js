@@ -63,6 +63,15 @@ const DeviceController = {
             res.status(500).json({ error: 'Failed to delete device' });
         }
     },
+    getOnlyNames: async (req, res) => {
+        try {
+            const uniqueNames = await Device.distinct("name");
+            res.json(uniqueNames);
+        } catch (error) {
+            res.status(500).json({ error: 'Failed to fetch device names' });
+        }
+    }
+    
 };
 
 module.exports = DeviceController;

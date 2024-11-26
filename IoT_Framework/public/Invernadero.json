@@ -1,0 +1,10 @@
+{
+    "module": "",
+    "device": "",
+    "Sensores": {
+        "sensor": "String",
+        "pot": "Number",
+        "volt": "Number",
+        "amp": "Number"
+    }
+}

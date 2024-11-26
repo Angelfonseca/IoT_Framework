@@ -12,5 +12,7 @@ router.post('/latest/:id', DataController.getMostRecentData);
 router.get('/modules', DataController.listModules);
 router.post('/json/:id', DataController.convertJson);
 router.get('/allfromdevice/:id', DataController.getModulesbyDevice);
+router.get('/from-device/:id', DataController.getModulesIncludesDevice);
+router.post('/to-graph/:id', DataController.getAvailableDataToGraphic);
 
 module.exports = router;
