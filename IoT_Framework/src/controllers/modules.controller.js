@@ -38,16 +38,15 @@ const ModulesController = {
     },
     getModelsbyIdandGraphable: async (req, res) => {
         try {
-            const moduleName = await ModuleSchema.findById(req.body.module);
-            console.log(moduleName.name);
-            const modelo = modules[moduleName.name];
+            const module = await ModuleSchema.findById(req.body.module);
+            const moduleName = module.name;
+            const modelo = modules[moduleName];
             const data = await modelo.findOne({ device: req.params.id }).sort({ createdAt: -1 });
 
             if (!data) {
                 return res.status(404).json({ message: 'No se encontraron datos' });
             }
             const graphableAttributes = getGraphableAttributes([data]);
-            console.log(data);
             res.json({ graphableAttributes });
 
         } catch (error) {
@@ -77,8 +76,8 @@ const getGraphableAttributes = (jsonData) => {
     };
 
     jsonData.forEach(dataEntry => {
-        if (dataEntry.Sensores && Array.isArray(dataEntry.Sensores)) {
-            dataEntry.Sensores.forEach(sensor => extractAttributes(sensor, 'Sensores'));
+        if (dataEntry.Sensores && typeof dataEntry.Sensores === 'object') {
+            extractAttributes(dataEntry.Sensores, 'Sensores');
         }
     });
 

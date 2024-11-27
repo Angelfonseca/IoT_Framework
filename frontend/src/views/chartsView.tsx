@@ -88,8 +88,8 @@ const ChartView: React.FC = () => {
             module: selectedGraphModule,
           }
         );
+        console.log("Fields response:", response);
         setFields(response.graphableAttributes || []);
-        console.error("Error fetching fields:", error);
       } catch (error) {
         console.error("Error fetching fields:", error);
       }
@@ -184,125 +184,127 @@ const ChartView: React.FC = () => {
         <p>Cargando módulos...</p>
       ) : (
         <>
-          <label htmlFor="graphModuleSelect">
-            Selecciona un módulo para graficar:
-          </label>
-          <select
-            id="graphModuleSelect"
-            value={selectedGraphModule}
-            onChange={(e) => setSelectedGraphModule(e.target.value)}
-            className="module-select"
-          >
-            <option value="">--Selecciona un módulo--</option>
-            {modules.map((module, index) => (
-              <option key={module._id} value={module._id}>
-                {module.name}
-              </option>
-            ))}
-          </select>
+          <div className="form">
+            <label htmlFor="graphModuleSelect">
+              Selecciona un módulo para graficar:
+            </label>
+            <select
+              id="graphModuleSelect"
+              value={selectedGraphModule}
+              onChange={(e) => setSelectedGraphModule(e.target.value)}
+              className="module-select"
+            >
+              <option value="">--Selecciona un módulo--</option>
+              {modules.map((module, index) => (
+                <option key={module._id} value={module._id}>
+                  {module.name}
+                </option>
+              ))}
+            </select>
 
-          <label htmlFor="chartType">Selecciona tipo de gráfica:</label>
-          <select
-            id="chartType"
-            value={chartType}
-            onChange={(e) =>
-              setChartType(e.target.value as "bar" | "line" | "scatter")
-            }
-            className="chart-type-select"
-          >
-            <option value="line">Línea</option>
-            <option value="bar">Barra</option>
-            <option value="scatter">Puntos</option>
-          </select>
-          {selectedGraphModule && (
-            <>
-              <div>
-                <label htmlFor="startDate">Fecha de inicio:</label>
-                <input
-                  type="date"
-                  id="startDate"
-                  value={dateRange.startDate}
-                  onChange={(e) =>
-                    setDateRange({
-                      ...dateRange,
-                      startDate: e.target.value,
-                    })
-                  }
-                  className="date-input"
-                />
-                <label htmlFor="endDate" className="date-label">
-                  Fecha de fin:
-                </label>
-                <input
-                  type="date"
-                  id="endDate"
-                  value={dateRange.endDate}
-                  onChange={(e) =>
-                    setDateRange({ ...dateRange, endDate: e.target.value })
-                  }
-                  className="date-input"
-                />
-                <button onClick={handleAddGraph} className="btn btn-orange">
-                  Agregar Gráfica
-                </button>
-              </div>
-              <div>
-                <h3>Selecciona campos a graficar:</h3>
-                {fields.length > 0 ? (
-                  fields.map((field, index) => (
-                    <div className="selector" key={index}>
-                      <input
-                        type="checkbox"
-                        id={field}
-                        value={field}
-                        onChange={handleFieldChange}
-                      />
-                      <label htmlFor={field}>{field}</label>
-                    </div>
-                  ))
-                ) : (
-                  <p>Cargando campos...</p>
-                )}
-              </div>
-            </>
-          )}
+            <label htmlFor="chartType">Selecciona tipo de gráfica:</label>
+            <select
+              id="chartType"
+              value={chartType}
+              onChange={(e) =>
+                setChartType(e.target.value as "bar" | "line" | "scatter")
+              }
+              className="chart-type-select"
+            >
+              <option value="line">Línea</option>
+              <option value="bar">Barra</option>
+              <option value="scatter">Puntos</option>
+            </select>
+            {selectedGraphModule && (
+              <>
+                <div>
+                  <label htmlFor="startDate">Fecha de inicio:</label>
+                  <input
+                    type="date"
+                    id="startDate"
+                    value={dateRange.startDate}
+                    onChange={(e) =>
+                      setDateRange({
+                        ...dateRange,
+                        startDate: e.target.value,
+                      })
+                    }
+                    className="date-input"
+                  />
+                  <label htmlFor="endDate" className="date-label">
+                    Fecha de fin:
+                  </label>
+                  <input
+                    type="date"
+                    id="endDate"
+                    value={dateRange.endDate}
+                    onChange={(e) =>
+                      setDateRange({ ...dateRange, endDate: e.target.value })
+                    }
+                    className="date-input"
+                  />
+                  <button onClick={handleAddGraph} className="btn btn-orange">
+                    Agregar Gráfica
+                  </button>
+                </div>
+                <div>
+                  <h3>Selecciona campos a graficar:</h3>
+                  {fields.length > 0 ? (
+                    fields.map((field, index) => (
+                      <div className="selector" key={index}>
+                        <input
+                          type="checkbox"
+                          id={field}
+                          value={field}
+                          onChange={handleFieldChange}
+                        />
+                        <label htmlFor={field}>{field}</label>
+                      </div>
+                    ))
+                  ) : (
+                    <p>Cargando campos...</p>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
           {graphs.length > 0 && (
-  <div className="chart-container">
-    {graphs.map((graphConfig, index) => {
-      // Encontrar el módulo correspondiente al graphConfig.module
-      const moduleName = modules.find(
-        (module) => module._id === graphConfig.module
-      )?.name;
-      return (
-        <div key={index} className="chart-item" id={`chart-${index}`}>
-          {/* Usar el nombre del módulo aquí */}
-          <h3>{`Módulo: ${moduleName}`}</h3>
-          <Chart
-            title={`Gráfica de ${moduleName}`}
-            datos={graphConfig.chartData}
-            chartType={graphConfig.chartType}
-            selectedFields={graphConfig.selectedFields}
-            fullScreen={false}
-          />
-          <button
-            onClick={() => handleRemoveGraph(index)}
-            className="btn btn-red"
-            disabled={isDownloading}
-          >
-            Quitar Gráfica
-          </button>
-          <button
-            onClick={() => handleDownloadGraph(graphConfig, index, "png")}
-            className="btn btn-green"
-            disabled={isDownloading}
-          >
-            Descargar PNG
-          </button>
-        </div>
-      );
-    })}
-  </div>
-)}
+            <div className="chart-container">
+              {graphs.map((graphConfig, index) => {
+                // Encontrar el módulo correspondiente al graphConfig.module
+                const moduleName = modules.find(
+                  (module) => module._id === graphConfig.module
+                )?.name;
+                return (
+                  <div key={index} className="chart-item" id={`chart-${index}`}>
+                    {/* Usar el nombre del módulo aquí */}
+                    <h3>{`Módulo: ${moduleName}`}</h3>
+                    <Chart
+                      title={`Gráfica de ${moduleName}`}
+                      datos={graphConfig.chartData}
+                      chartType={graphConfig.chartType}
+                      selectedFields={graphConfig.selectedFields}
+                      fullScreen={false}
+                    />
+                    <button
+                      onClick={() => handleRemoveGraph(index)}
+                      className="btn btn-red"
+                      disabled={isDownloading}
+                    >
+                      Quitar Gráfica
+                    </button>
+                    <button
+                      onClick={() => handleDownloadGraph(graphConfig, index, "png")}
+                      className="btn btn-green"
+                      disabled={isDownloading}
+                    >
+                      Descargar PNG
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </>
       )}
     </div>

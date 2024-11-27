@@ -11,6 +11,8 @@
   overflow-y: auto;
   padding: 1rem;
   position: relative; /* Agrega esto para posicionar elementos en relación a esta sección */
+  box-sizing: border-box;
+
 }
 /* Ajuste para la vista de gráficos */
 .chart-view {
@@ -26,7 +28,7 @@
 
 .chart-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas por defecto */
+  grid-template-columns: repeat(4, 1fr); /* 2 columnas por defecto */
   gap: 1.5rem;
   margin-top: 2rem;
   padding-bottom: 3rem;
