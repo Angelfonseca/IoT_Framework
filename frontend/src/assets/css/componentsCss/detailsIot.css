@@ -37,6 +37,9 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Asegura que los botones ocupen el mismo espacio */
+    margin: 0 5px; /* Espacio entre botones */
 }
 
 .device-detail-modal button:hover {
@@ -55,10 +58,18 @@
 
 .button-container-top {
     display: flex;
-    justify-content: flex-end; /* Alinea los botones a la derecha */
+    justify-content: flex-end;
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
 }
 
 .redirect-btn {
@@ -68,7 +79,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px; /* Espacio entre los botones */
+    margin-left: 10px;
 }
 
 .redirect-btn:hover {
@@ -79,9 +90,9 @@
     font-size: 1rem;
     color: #333;
     cursor: pointer;
-    margin-left: 140px;
+    margin-left: 10px;
 }
 
 .close-btn:hover {
-    color: #ff0000; /* Cambia el color al pasar el mouse */
+    color: #ff0000;
 }

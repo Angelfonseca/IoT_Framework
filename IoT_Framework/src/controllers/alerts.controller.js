@@ -7,49 +7,77 @@ const { getAll } = require('./devices.controller');
 const compare = async function(data, device, module) {
     try {
         const filtros = await Filter.find({ device, module });
+        console.log('Filtros encontrados:', filtros);  // Añadir log para depuración
         if (!filtros || filtros.length === 0) return "No hay filtros para este dispositivo y módulo";
 
         const alerts = [];
 
-        for (const atributo in data) {
-            const value = getNestedValue(data, atributo);
-            const filtro = filtros.find(f => f.field === atributo);
+        for (const filtro of filtros) {
+            const value = getNestedValue(data, filtro.field);
+            console.log(`Valor de ${filtro.field}:`, value);  // Añadir log para depuración
 
-            if (filtro) {
-                for (const condition of filtro.conditions) {
-                    let description = null;
+            if (value === undefined || value === null) continue;
 
-                    switch (condition.condition) {
-                        case "<":
-                            if (value >= condition.threshold) description = `Alerta de ${module}: ${atributo} mayor a ${condition.threshold}`;
-                            break;
-                        case "<=":
-                            if (value > condition.threshold) description = `Alerta de ${module}: ${atributo} mayor o igual a ${condition.threshold}`;
-                            break;
-                        case "=":
-                            if (value !== condition.threshold) description = `Alerta de ${module}: ${atributo} distinto de ${condition.threshold}`;
-                            break;
-                        case ">=":
-                            if (value < condition.threshold) description = `Alerta de ${module}: ${atributo} menor a ${condition.threshold}`;
-                            break;
-                        case ">":
-                            if (value <= condition.threshold) description = `Alerta de ${module}: ${atributo} menor o igual a ${condition.threshold}`;
-                            break;
-                    }
+            for (const condition of filtro.conditions) {
+                let description = null;
 
-                    if (description) {
-                        const alert = await crearAlerta(description, device, module);
-                        alerts.push(alert);
-                    }
+                // Asegurarse de que el valor de threshold sea un número
+                const threshold = Number(condition.threshold);
+                if (isNaN(threshold)) {
+                    console.error(`Threshold no válido para la condición: ${condition.threshold}`);
+                    continue;  // Si el threshold no es un número, saltamos esta condición
+                }
+                switch (condition.condition) {
+                    case "<":
+                        if (value < condition.threshold) {
+                            description = `Alerta de ${module}: ${filtro.field} menor que ${condition.threshold}`;
+                        }
+                        break;
+                    case "<=":
+                        if (value <= condition.threshold) {
+                            description = `Alerta de ${module}: ${filtro.field} menor o igual que ${condition.threshold}`;
+                        }
+                        break;
+                    case "=":
+                        if (value !== condition.threshold) {
+                            description = `Alerta de ${module}: ${filtro.field} distinto de ${condition.threshold}`;
+                        }
+                        break;
+                    case ">=":
+                        if (value >= condition.threshold) {
+                            description = `Alerta de ${module}: ${filtro.field} mayor o igual que ${condition.threshold}`;
+                        }
+                        break;
+                    case ">":
+                        if (value > condition.threshold) {
+                            description = `Alerta de ${module}: ${filtro.field} mayor que ${condition.threshold}`;
+                        }
+                        break;
+                }
+                
+
+                // Si hay una descripción, crear la alerta
+                if (description) {
+                    const alert = await crearAlerta(description, device, module);
+                    console.log('Alerta creada:', alert);  // Añadir log para depuración
+                    alerts.push(alert);
                 }
             }
         }
 
         return alerts;
     } catch (err) {
+        console.error("Error al comparar y crear alertas:", err);
         throw new Error(err.message || "Ocurrió un error al crear la alerta.");
     }
 };
+
+function getNestedValue(obj, path) {
+    return path.split('.').reduce((acc, part) => {
+        return acc && acc[part] !== undefined ? acc[part] : undefined;
+    }, obj);
+}
+
 
 const crearAlerta = async function(description, device, module) {
     const alert = new Alert({
@@ -260,9 +288,7 @@ const filtersController ={
     
 
 }
-function getNestedValue(obj, path) {
-    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
-}
+
 
 module.exports = {filtersController, AlertsController, compare};
 

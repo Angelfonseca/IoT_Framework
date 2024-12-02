@@ -4,7 +4,7 @@ import apiService from "../services/api.service";
 import Chart from "../components/graficas"; // Importa el componente de Chart
 import "../assets/css/componentsCss/chartModal.css";
 import html2canvas from "html2canvas";
-import '../assets/css/viewsCss/chartsView.css';
+import "../assets/css/viewsCss/chartsView.css";
 
 interface DataPoint {
   date: string;
@@ -35,6 +35,8 @@ const ChartView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [modules, setModules] = useState<string[]>([]);
   const [selectedGraphModule, setSelectedGraphModule] = useState<string>("");
+  const [groupBy, setGroupBy] = useState<string>(""); // Día, 3 días, 5 días, etc.
+
   const [dateRange, setDateRange] = useState<{
     startDate: string;
     endDate: string;
@@ -105,45 +107,40 @@ const ChartView: React.FC = () => {
   };
 
   const handleAddGraph = async () => {
-    if (
-      !selectedGraphModule ||
-      !dateRange.startDate ||
-      !dateRange.endDate ||
-      selectedFields.length === 0
-    )
-      return;
+    if (!selectedGraphModule || !dateRange.startDate || !dateRange.endDate || selectedFields.length === 0) return;
   
     try {
-      const response = await apiService.post<{ data: DataPoints[] }>(
-        `data/range/${id}`,
-        {
-          module: selectedGraphModule,
-          startDate: new Date(dateRange.startDate).toISOString(),
-          endDate: new Date(dateRange.endDate).toISOString(),
-          filters: selectedFields,
-        }
-      );
+      const response = await apiService.post<{ data: DataPoints[] }>(`data/range/${id}`, {
+        module: selectedGraphModule,
+        startDate: new Date(dateRange.startDate).toISOString(),
+        endDate: new Date(dateRange.endDate).toISOString(),
+        filters: selectedFields,
+        groupBy,
+      });
+      console.log("Data by date range response:", response); // Verifica la estructura de la respuesta
+  
+      const processedData = Object.values(response).map((dataPoint) => ({
+        ...dataPoint,
+        min: Math.min(...dataPoint.values.map((v) => v.value)),
+        max: Math.max(...dataPoint.values.map((v) => v.value)),
+        avg: dataPoint.values.reduce((sum, v) => sum + v.value, 0) / dataPoint.values.length,
+      }));
   
       const newGraphConfig: GraphConfig = {
         name: `Gráfica ${graphs.length}`,
         module: selectedGraphModule,
         chartType,
         selectedFields,
-        chartData: response,
+        groupBy,
+        chartData: processedData,
       };
   
-      // Construir el título con el .name del módulo y los campos seleccionados
-      const moduleName = modules.find((mod) => mod._id === selectedGraphModule)?.name || 'Módulo desconocido';
-      const fieldNames = selectedFields.join('.');
-      newGraphConfig.name = `Gráfica de ${moduleName} - ${fieldNames}`;
-  
-      console.log("New graph config:", newGraphConfig);
       setGraphs((prev) => [...prev, newGraphConfig]);
     } catch (error) {
       console.error("Error fetching data by date range:", error);
     }
   };
-
+  
   const handleRemoveGraph = (index: number) => {
     setGraphs((prev) => prev.filter((_, i) => i !== index));
   };
@@ -162,6 +159,9 @@ const ChartView: React.FC = () => {
     }
 
     try {
+      const buttons = chartElement.querySelectorAll("button");
+      buttons.forEach((button) => (button.style.display = "none"));
+
       const canvas = await html2canvas(chartElement as HTMLElement);
       const imgData = canvas.toDataURL("image/png");
       const a = document.createElement("a");
@@ -170,6 +170,7 @@ const ChartView: React.FC = () => {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      buttons.forEach((button) => (button.style.display = "block"));
     } catch (error) {
       console.error("Error al convertir el gráfico a PNG:", error);
     } finally {
@@ -243,6 +244,22 @@ const ChartView: React.FC = () => {
                     }
                     className="date-input"
                   />
+                  <label htmlFor="groupBy">Agrupar por fecha:</label>
+                  <select
+                    id="groupBy"
+                    value={groupBy}
+                    onChange={(e) => setGroupBy(e.target.value)}
+                    className="group-by-select"
+                  >
+                    <option value="nothing">--Selecciona agrupación--</option>
+                    <option value="day">Día</option>
+                    <option value="3days">3 Días</option>
+                    <option value="5days">5 Días</option>
+                    <option value="7days">7 Días</option>
+                    <option value="15days">15 Días</option>
+                    <option value="1month">1 Mes</option>
+                  </select>
+
                   <button onClick={handleAddGraph} className="btn btn-orange">
                     Agregar Gráfica
                   </button>
@@ -280,12 +297,11 @@ const ChartView: React.FC = () => {
                     {/* Usar el nombre del módulo aquí */}
                     <h3>{`Módulo: ${moduleName}`}</h3>
                     <Chart
-                      title={`Gráfica de ${moduleName}`}
                       datos={graphConfig.chartData}
                       chartType={graphConfig.chartType}
-                      selectedFields={graphConfig.selectedFields}
                       fullScreen={false}
-                    />
+                    />{" "}
+                    <br />
                     <button
                       onClick={() => handleRemoveGraph(index)}
                       className="btn btn-red"
@@ -294,7 +310,9 @@ const ChartView: React.FC = () => {
                       Quitar Gráfica
                     </button>
                     <button
-                      onClick={() => handleDownloadGraph(graphConfig, index, "png")}
+                      onClick={() =>
+                        handleDownloadGraph(graphConfig, index, "png")
+                      }
                       className="btn btn-green"
                       disabled={isDownloading}
                     >
